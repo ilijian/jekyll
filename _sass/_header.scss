@@ -1,0 +1,148 @@
+$header-top: 30px;
+$header-height: 60px;
+$header-left-margin: 30px;
+$text-color: $text-blue;
+$link-margin-top: 10px;
+$collapse-breakpoint: 600px;
+
+.hedge-header {
+  margin-top: $header-top + $header-height;
+  @include viewport-narrower-than($collapse-breakpoint) {
+    margin-top: $header-height;
+  }
+}
+
+.header-main {
+  height: $header-height;
+  padding: 0 20px;
+  position: absolute;
+  left: $header-left-margin;
+  right: $header-left-margin;
+  top: $header-top;
+  z-index: $z-index-max - 3;
+  background: $text-white;
+  opacity: 0.9;
+  @include clearfix;
+
+  @include viewport-narrower-than($collapse-breakpoint) {
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+
+  .avatar, .nav>ul, .nav>ul>li {
+    line-height: $header-height;
+    height: $header-height;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .avatar {
+    float: left;
+    padding: 0 20px;
+    // background: image-url("avatar.png") no-repeat;
+  }
+
+  .nav {
+    height: $header-height;
+    text-align: right;
+  }
+
+  .nav>ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    @include viewport-narrower-than($collapse-breakpoint) {
+      display: none;
+    }
+    >li>a {
+      text-decoration: none;
+      color: $text-color;
+      position: relative;
+      display: inline-block;
+      vertical-align: baseline;
+      padding: 0 20px;
+      // margin: $link-margin-top 0;
+      line-height: $header-height - $link-margin-top * 2;
+      border-radius: 3px;
+      // @include transition(color 0.5s cubic-bezier(0.15, 0.95, 0.41, 0.95), background-color 0.5s cubic-bezier(0.15, 0.95, 0.41, 0.95));
+      transition: 0.25s;
+      &:after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background: $text-color;
+        border-radius: 3px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+        transition: 0.25s;
+        transform: scale(1,0);
+        transform-origin: 0%,50%;
+      }
+
+      &:hover {
+        color: white;
+        &:after {
+          transform: scale(1,1);
+        }
+      }
+    }
+  }
+
+  $bar-width: 22px;
+  $bar-margin: 13px;
+  .nav>.collapsed {
+    display: none;
+    margin-top: $link-margin-top;
+    line-height: $header-height - $link-margin-top * 2;
+    height: $header-height - $link-margin-top * 2;
+    width: $bar-width + $bar-margin * 2;
+    position: relative;
+    border-radius: 3px;
+    transition: 0.25s;
+
+    &:before, &:after {
+      content: "";
+      display: block;
+      width: $bar-width;
+      position: absolute;
+      left: 50%;
+      margin-left: 0 - $bar-width / 2;
+
+    }
+
+    &:before {
+      height: $header-height - $link-margin-top * 2 - $bar-margin * 2;
+      top: $bar-margin;
+      border-top: 2px solid $text-color;
+      border-bottom: 2px solid $text-color;
+    }
+
+    &:after {
+      top: 50%;
+      border-top: 1px solid $text-color;
+      border-bottom: 1px solid $text-color;
+      margin-top: -1px;
+    }
+
+    &:hover {
+      background: #f9f9f9;
+    }
+
+    @include viewport-narrower-than ($collapse-breakpoint){
+      display: inline-block;
+    }
+  }
+
+}
+
+.header-placeholder {
+  display: block;
+  width: 100%;
+  height: $header-height + $header-top;
+  @include clearfix;
+}
